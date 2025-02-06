@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Be My Valentine?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div class="container">
+    <h1 id="main-message">Will You Be My Valentine?</h1>
+    <button id="yes-btn">Yes, I will!</button>
+    <button id="no-btn">No</button>
+    <div class="hidden-text" id="hidden-message"></div>
+  </div>
+
+  <!-- Plenty of Love Emojis -->
+  <script>
+    for (let i = 0; i < 50; i++) {
+      const emoji = document.createElement('div');
+      emoji.classList.add('emoji');
+      emoji.textContent = '💙';
+      emoji.style.top = `${Math.random() * 100}%`;
+      emoji.style.left = `${Math.random() * 100}%`;
+      emoji.style.animationDuration = `${Math.random() * 3 + 2}s`;
+      document.body.appendChild(emoji);
+    }
+
+    const noMessages = [
+      "No do like this jor baby mi",
+      "My chest oo",
+      "Have mercy on me",
+      "My love",
+      "Madam!!",
+      "Oga do normal and press yes jor"
+    ];
+
+    document.getElementById("no-btn").addEventListener("click", function () {
+      const randomMessage = noMessages[Math.floor(Math.random() * noMessages.length)];
+      setTimeout(() => alert(randomMessage), 50); // Delay to ensure message visibility
+
+      // Increase yes button size on every no button click
+      const yesButton = document.getElementById("yes-btn");
+      const currentScale = parseFloat(yesButton.style.transform.replace("scale(", "").replace(")", "")) || 1;
+      yesButton.style.transform = `scale(${currentScale + 0.1})`;
+    });
+
+    document.getElementById("yes-btn").addEventListener("click", function () {
+      const mainMessage = document.getElementById("main-message");
+      const message = document.getElementById("hidden-message");
+      const container = document.querySelector(".container");
+
+      // Add YAYYYYY! heading
+      const yayHeading = document.createElement("h1");
+      yayHeading.textContent = "YAYYYYY!";
+      yayHeading.style.color = "white";
+      yayHeading.style.marginTop = "20px";
+      container.insertBefore(yayHeading, message);
+
+      // Remove buttons and main message
+      mainMessage.style.opacity = 0;
+      document.getElementById("yes-btn").style.display = "none";
+      document.getElementById("no-btn").style.display = "none";
+
+      // Typing animation for love message
+      const loveMessage = "My dearest love, you light up my world in ways I never imagined possible. Every moment with you feels like a beautiful adventure, filled with joy, laughter, and love. As Valentine's Day approaches, I can’t think of anyone else I would rather share this special day with than you. I promise to cherish you, support you, and love you through every season of life. So, my love, will you be my Valentine and continue being the reason behind my smile?";
+      let index = 0;
+      message.style.width = "100%"; // Expand the hidden box size
+      message.style.opacity = 1;
+
+      function typeMessage() {
+        if (index < loveMessage.length) {
+          message.textContent += loveMessage.charAt(index);
+          index++;
+          setTimeout(typeMessage, 50); // Adjust typing speed here
+        }
+      }
+
+      typeMessage();
+    });
+  </script>
+</body>
+</html>
